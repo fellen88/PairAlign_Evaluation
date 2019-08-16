@@ -40,7 +40,7 @@ void registration::SAC_IA_PareAlign(const PointCloud::Ptr cloud_src, const Point
   pcl::VoxelGrid<PointT> grid; //VoxelGrid 把一个给定的点云，聚集在一个局部的3D网格上,并下采样和滤波点云数据
   if (downsample) //下采样
   {
-    grid.setLeafSize (0.001, 0.001, 0.001); //设置体元网格的叶子大小
+    grid.setLeafSize (0.002, 0.002, 0.002); //设置体元网格的叶子大小
         //下采样 源点云
     grid.setInputCloud (cloud_src); //设置输入点云
     grid.filter (*source_filtered); //下采样和滤波，并存储在src中

@@ -1,22 +1,5 @@
 
-#include <pcl/visualization/pcl_visualizer.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/io/vtk_lib_io.h>
-#include <pcl/common/transforms.h>
-
-#include <vtkVersion.h>
-
-#include <vtkPLYReader.h>
-#include <vtkOBJReader.h>
-#include <vtkTriangle.h>
-#include <vtkTriangleFilter.h>
-#include <vtkPolyDataMapper.h>
-#include <pcl/filters/voxel_grid.h>
-#include <pcl/console/print.h>
-#include <pcl/console/parse.h>
- 
-#include <vtkoutputwindow.h>
-#include <vtkAutoInit.h>
+#include "data_process.h"
 
 VTK_MODULE_INIT(vtkRenderingOpenGL);
 
@@ -80,7 +63,7 @@ randPSurface (vtkPolyData * polydata, std::vector<double> * cumulativeAreas, dou
 }
  
 void
-uniform_sampling (vtkSmartPointer<vtkPolyData> polydata, size_t n_samples, bool calc_normal, pcl::PointCloud<pcl::PointNormal> & cloud_out)
+uniform_sampling (vtkSmartPointer<vtkPolyData> polydata, size_t n_samples, bool calc_normal, pcl::PointCloud<pcl::PointXYZ> & cloud_out)
 {
   polydata->BuildCells ();
   vtkSmartPointer<vtkCellArray> cells = polydata->GetPolys ();
@@ -107,15 +90,15 @@ uniform_sampling (vtkSmartPointer<vtkPolyData> polydata, size_t n_samples, bool 
     Eigen::Vector4f p;
     Eigen::Vector3f n;
     randPSurface (polydata, &cumulativeAreas, totalArea, p, calc_normal, n);
-    cloud_out.points[i].x = p[0];
-    cloud_out.points[i].y = p[1];
-    cloud_out.points[i].z = p[2];
-    if (calc_normal)
-    {
-      cloud_out.points[i].normal_x = n[0];
-      cloud_out.points[i].normal_y = n[1];
-      cloud_out.points[i].normal_z = n[2];
-    }
+	cloud_out.points[i].x = p[0] / 1000;
+    cloud_out.points[i].y = p[1] / 1000;
+    cloud_out.points[i].z = p[2] / 1000;
+   // if (calc_normal)
+   // {
+   //   cloud_out.points[i].normal_x = n[0];
+   //   cloud_out.points[i].normal_y = n[1];
+   //   cloud_out.points[i].normal_z = n[2];
+   // }
   }
 }
  
@@ -126,11 +109,9 @@ using namespace pcl::console;
 const int default_number_samples = 100000;
 const float default_leaf_size = 0.01f;
  
- 
 int
-data_process (int argc, char **argv)
+data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
 {
-  
   // Parse command line arguments
   int SAMPLE_POINTS_ = default_number_samples;
   parse_argument (argc, argv, "-n_samples", SAMPLE_POINTS_);
@@ -141,11 +122,11 @@ data_process (int argc, char **argv)
  
   // Parse the command line arguments for .ply and PCD files
   std::vector<int> pcd_file_indices = parse_file_extension_argument (argc, argv, ".pcd");
-  if (pcd_file_indices.size () != 1)
-  {
-    print_error ("Need a single output PCD file to continue.\n");
-    return (-1);
-  }
+ // if (pcd_file_indices.size () != 1)
+ // {
+ //   print_error ("Need a single output PCD file to continue.\n");
+ //   return (-1);
+ // }
   std::vector<int> ply_file_indices = parse_file_extension_argument (argc, argv, ".ply");
   std::vector<int> obj_file_indices = parse_file_extension_argument (argc, argv, ".obj");
   std::vector<int> stl_file_indices = parse_file_extension_argument (argc, argv, ".stl");
@@ -176,6 +157,7 @@ data_process (int argc, char **argv)
     polydata1 = readerQuery->GetOutput ();
   }
 
+
   vtkOutputWindow::SetGlobalWarningDisplay(0);
   //make sure that the polygons are triangles!
   vtkSmartPointer<vtkTriangleFilter> triangleFilter = vtkSmartPointer<vtkTriangleFilter>::New ();
@@ -191,7 +173,50 @@ data_process (int argc, char **argv)
   triangleMapper->Update ();
   polydata1 = triangleMapper->GetInput ();
  
-  pcl::PointCloud<pcl::PointNormal>::Ptr cloud_1 (new pcl::PointCloud<pcl::PointNormal>);
-  uniform_sampling (polydata1, SAMPLE_POINTS_, write_normals, *cloud_1);
+ // pcl::PointCloud<pcl::PointNormal>::Ptr cloud_1 (new pcl::PointCloud<pcl::PointNormal>);
+  uniform_sampling (polydata1, SAMPLE_POINTS_, write_normals, *transformed_cloud);
+
   return 1;
+}
+
+void 
+singleview_sample(int i, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
+{
+	/*+++++++++++++++++++++++++单视角点云获取+++++++++++++++++++++++++++++++*/
+	vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
+	vtkSmartPointer<vtkSTLReader> readerQuery = vtkSmartPointer<vtkSTLReader>::New();
+	//读取CAD模型
+	readerQuery->SetFileName("guide.stl");
+	readerQuery->Update();
+	polydata = readerQuery->GetOutput();
+	polydata->GetNumberOfPoints();
+
+	//单视角点云获取
+	float resx = 512;
+	float resy = resx;
+	std::vector<pcl::PointCloud<pcl::PointXYZ>, Eigen::aligned_allocator<pcl::PointCloud<pcl::PointXYZ> > > views_xyz;
+	std::vector<Eigen::Matrix4f, Eigen::aligned_allocator<Eigen::Matrix4f> > poses;
+	std::vector<float> entropies;
+	pcl::visualization::PCLVisualizer vis;
+	vis.addModelFromPolyData(polydata, "mesh", 0);
+	vis.setRepresentationToSurfaceForAllActors();
+	vis.renderViewTesselatedSphere(resx, resy, views_xyz, poses, entropies, 0, 90, 1, TRUE);
+	//for (int i = 0; i < views_xyz.size(); i++)
+	{
+	//	pcl::PointCloud<pcl::PointXYZ> views_cloud;
+		pcl::transformPointCloud<pcl::PointXYZ>(views_xyz[i], *transformed_cloud, poses[i]);
+
+		//点云单位转换mm—>m， 矩阵方法
+		Eigen::Matrix4f transformation_axis = Eigen::Matrix4f::Identity();
+		transformation_axis(0, 0) = 0.001;
+		transformation_axis(1, 1) = 0.001;
+		transformation_axis(2, 2) = 0.001;
+		pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_out1(new pcl::PointCloud<pcl::PointXYZ>);
+		pcl::transformPointCloud(*transformed_cloud, *transformed_cloud, transformation_axis);
+
+	//	std::stringstream ss;
+	//	ss << "cloud_view_" << i << ".ply";
+	//	pcl::io::savePLYFile(ss.str(), views_cloud);
+	}
+		
 }

@@ -22,4 +22,4 @@ int
 data_process(int argc, char **argv,  pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud);
 
 void
-singleview_sample(int i, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud);
+singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud);

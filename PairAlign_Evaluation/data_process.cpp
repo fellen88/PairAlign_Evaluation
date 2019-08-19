@@ -180,7 +180,7 @@ data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transfo
 }
 
 void 
-singleview_sample(int i, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
+singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
 {
 	/*+++++++++++++++++++++++++单视角点云获取+++++++++++++++++++++++++++++++*/
 	vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();

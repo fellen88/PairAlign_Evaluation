@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	PointCloud::Ptr target(new PointCloud);
 
 	data_process(argc, argv, source);
-	singleview_sample(1, target);
+	singleview_sample(1, argv, target);
 
 	//**************************** registration ****************************//
 	Eigen::Matrix4f Final_Transform;

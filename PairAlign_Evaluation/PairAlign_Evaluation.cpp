@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	PointCloud::Ptr target(new PointCloud);
 
 	data_process(argc, argv, source);
-	singleview_sample(1, argv, target);
+	singleview_sample(2, argv, target);
 
 	//**************************** registration ****************************//
 	Eigen::Matrix4f Final_Transform;
@@ -44,13 +44,13 @@ int main(int argc, char **argv)
 	pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> target_cloud_color(target, 0, 250, 0);
 	view->addPointCloud(source, sources_cloud_color, "sources_cloud_v1", v1);
 	view->addPointCloud(target, target_cloud_color, "target_cloud_v1", v1);
-	view->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "sources_cloud_v1");
+	view->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 2, "sources_cloud_v1");
 	view->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 2, "target_cloud_v1");
 
 	pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ>aligend_cloud_color(output, 0, 255, 0);
 	view->addPointCloud(output, aligend_cloud_color, "aligend_cloud_v2", v2);
 	//view->addPointCloud(source, sources_cloud_color, "sources_cloud_v2", v2);
-	view->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "aligend_cloud_v2");
+	view->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 2, "aligend_cloud_v2");
 	//view->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "sources_cloud_v2");
 	view->spin();
 	//*********************************************************************//

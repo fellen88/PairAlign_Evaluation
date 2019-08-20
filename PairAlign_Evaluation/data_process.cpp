@@ -186,7 +186,7 @@ singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transf
 	vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
 	vtkSmartPointer<vtkSTLReader> readerQuery = vtkSmartPointer<vtkSTLReader>::New();
 	//¶ÁÈ¡CADÄ£ÐÍ
-	readerQuery->SetFileName("guide.stl");
+	readerQuery->SetFileName(argv[1]);
 	readerQuery->Update();
 	polydata = readerQuery->GetOutput();
 	polydata->GetNumberOfPoints();

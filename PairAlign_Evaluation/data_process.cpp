@@ -176,6 +176,18 @@ data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transfo
  // pcl::PointCloud<pcl::PointNormal>::Ptr cloud_1 (new pcl::PointCloud<pcl::PointNormal>);
   uniform_sampling (polydata1, SAMPLE_POINTS_, write_normals, *transformed_cloud);
 
+//示输入点坐标
+//std::vector<pcl::PointXYZ>::iterator iter;
+//for (iter = transformed_cloud->points.begin(); iter != transformed_cloud->points.end(); iter++)
+//{
+//	if (iter->x != 0)
+//	{
+//		cout << "point.x = " << iter->x << endl;
+//		cout << "point.y = " << iter->y << endl;
+//		cout << "point.z = " << iter->z << endl;
+//	}
+//}
+
   return 1;
 }
 
@@ -200,11 +212,11 @@ singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transf
 	pcl::visualization::PCLVisualizer vis;
 	vis.addModelFromPolyData(polydata, "mesh", 0);
 	vis.setRepresentationToSurfaceForAllActors();
-	vis.renderViewTesselatedSphere(resx, resy, views_xyz, poses, entropies, 0, 90, 1, TRUE);
+	vis.renderViewTesselatedSphere(resx, resy, views_xyz, poses, entropies, 0, 90, 100 , TRUE);
 	//for (int i = 0; i < views_xyz.size(); i++)
 	{
-	//	pcl::PointCloud<pcl::PointXYZ> views_cloud;
-		pcl::transformPointCloud<pcl::PointXYZ>(views_xyz[i], *transformed_cloud, poses[i]);
+		pcl::PointCloud<pcl::PointXYZ> views_cloud;
+		pcl::transformPointCloud<pcl::PointXYZ>(views_xyz[i], *transformed_cloud, poses[i].inverse());
 
 		//点云单位转换mm—>m， 矩阵方法
 		Eigen::Matrix4f transformation_axis = Eigen::Matrix4f::Identity();

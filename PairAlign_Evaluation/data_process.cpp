@@ -130,26 +130,26 @@ data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transfo
   std::vector<int> ply_file_indices = parse_file_extension_argument (argc, argv, ".ply");
   std::vector<int> obj_file_indices = parse_file_extension_argument (argc, argv, ".obj");
   std::vector<int> stl_file_indices = parse_file_extension_argument (argc, argv, ".stl");
-  if (ply_file_indices.size () != 1 && obj_file_indices.size () != 1 && stl_file_indices.size() != 1)
+  if (ply_file_indices.size () == 0 && obj_file_indices.size () == 0 && stl_file_indices.size() == 0)
   {
     print_error ("Need a single input PLY/OBJ/STL file to continue.\n");
     return (-1);
   }
  
   vtkSmartPointer<vtkPolyData> polydata1 = vtkSmartPointer<vtkPolyData>::New ();
-  if (ply_file_indices.size () == 1)
+  if (ply_file_indices.size () != 0)
   {
     pcl::PolygonMesh mesh;
     pcl::io::loadPolygonFilePLY (argv[ply_file_indices[0]], mesh);
     pcl::io::mesh2vtk (mesh, polydata1);
   }
-  else if (stl_file_indices.size () == 1)
+  else if (stl_file_indices.size () != 0)
   {
 	pcl::PolygonMesh mesh;
     pcl::io::loadPolygonFile (argv[stl_file_indices[0]], mesh);
     pcl::io::mesh2vtk (mesh, polydata1);
   }
-  else if (obj_file_indices.size () == 1)
+  else if (obj_file_indices.size () != 0)
   {
     vtkSmartPointer<vtkOBJReader> readerQuery = vtkSmartPointer<vtkOBJReader>::New ();
     readerQuery->SetFileName (argv[obj_file_indices[0]]);
@@ -175,6 +175,7 @@ data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transfo
  
  // pcl::PointCloud<pcl::PointNormal>::Ptr cloud_1 (new pcl::PointCloud<pcl::PointNormal>);
   uniform_sampling (polydata1, SAMPLE_POINTS_, write_normals, *transformed_cloud);
+  pcl::io::savePCDFileASCII("data_process.pcd", *transformed_cloud);
 
 //示输入点坐标
 //std::vector<pcl::PointXYZ>::iterator iter;
@@ -191,6 +192,7 @@ data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transfo
   return 1;
 }
 
+
 void 
 singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
 {
@@ -198,7 +200,7 @@ singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transf
 	vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
 	vtkSmartPointer<vtkSTLReader> readerQuery = vtkSmartPointer<vtkSTLReader>::New();
 	//读取CAD模型
-	readerQuery->SetFileName(argv[1]);
+	readerQuery->SetFileName(argv[2]);
 	readerQuery->Update();
 	polydata = readerQuery->GetOutput();
 	polydata->GetNumberOfPoints();
@@ -230,5 +232,9 @@ singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transf
 	//	ss << "cloud_view_" << i << ".ply";
 	//	pcl::io::savePLYFile(ss.str(), views_cloud);
 	}
-		
+	
+	for (int i = 0; i < views_xyz.size(); i++)
+	{
+		pcl::io::savePCDFileASCII("../single_view_pcd/"+std::to_string(i)+".pcd", views_xyz[i]);
+	}	
 }

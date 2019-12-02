@@ -154,7 +154,7 @@
   <ItemGroup>
     <ClCompile Include="data_process.cpp" />
     <ClCompile Include="PairAlign_Evaluation.cpp" />
-    <ClCompile Include="3d_featrues.cpp" />
+    <ClCompile Include="3d_features.cpp" />
     <ClCompile Include="pcl_visualizer.cpp" />
     <ClCompile Include="3d_registration.cpp" />
   </ItemGroup>

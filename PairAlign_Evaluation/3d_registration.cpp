@@ -32,7 +32,7 @@ fpfhFeature::Ptr registration::compute_fpfh_feature(PointCloud::Ptr input_cloud,
 	return fpfh;
 }
 
-void registration::SAC_IA_PareAlign(const PointCloud::Ptr cloud_src, const PointCloud::Ptr cloud_tgt, PointCloud::Ptr transformed_cloud, bool downsample)
+void registration::SAC_IA_PareAlign(const PointCloud::Ptr cloud_src, const PointCloud::Ptr cloud_tgt, PointCloud::Ptr transformed_cloud, Eigen::Matrix4f &SAC_transform, bool downsample)
 {
   //为了一致性和速度，下采样
   PointCloud::Ptr source_filtered(new PointCloud); //创建点云指针
@@ -73,6 +73,8 @@ void registration::SAC_IA_PareAlign(const PointCloud::Ptr cloud_src, const Point
 	sac_ia.setCorrespondenceRandomness(10); //设置计算协方差时选择多少近邻点，该值越大，协防差越精确，但是计算效率越低.(可省)
 	sac_ia.align(*transformed_cloud);
 
+	SAC_transform = sac_ia.getFinalTransformation();
+
 	//可视化
 	if (true == DEBUG_VISUALIZER)
 	{
@@ -111,7 +113,7 @@ void registration::SAC_IA_PareAlign(const PointCloud::Ptr cloud_src, const Point
 	}
 }
 
-void registration::prePairAlign(const PointCloud::Ptr cloud_src,const PointCloud::Ptr cloud_tgt, PointCloud::Ptr transformed_cloud, bool downsample)
+void registration::prePairAlign(const PointCloud::Ptr cloud_src,const PointCloud::Ptr cloud_tgt, PointCloud::Ptr transformed_cloud, Eigen::Matrix4f &pre_transform,bool downsample)
 {
   PointCloud::Ptr src (new PointCloud); //创建点云指针
   PointCloud::Ptr tgt (new PointCloud);
@@ -286,6 +288,7 @@ void registration::prePairAlign(const PointCloud::Ptr cloud_src,const PointCloud
 	//You can either apply transform_1 or transform_2; they are the same
   //pcl::transformPointCloud(*cloud_src, *transformed_cloud, MomentOfInertia_Transformation);
   pcl::transformPointCloud(*cloud_tgt, *transformed_cloud, MomentOfInertia_Transformation);
+  pre_transform = MomentOfInertia_Transformation;
   // if(true == DEBUG_VISUALIZER)
   //{
   //  pcl_v_.p->addPointCloud<pcl::PointXYZ>(transformed_cloud, "prePairAlign cloud");

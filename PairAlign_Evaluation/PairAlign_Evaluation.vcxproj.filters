@@ -21,13 +21,13 @@
     <ClCompile Include="pcl_visualizer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="3d_featrues.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="3d_registration.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="data_process.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3d_features.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

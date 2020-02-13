@@ -175,7 +175,7 @@ data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transfo
  
  // pcl::PointCloud<pcl::PointNormal>::Ptr cloud_1 (new pcl::PointCloud<pcl::PointNormal>);
   uniform_sampling (polydata1, SAMPLE_POINTS_, write_normals, *transformed_cloud);
-  pcl::io::savePCDFileASCII("data_process.pcd", *transformed_cloud);
+  //pcl::io::savePCDFileASCII("data_process.pcd", *transformed_cloud);
 
 //示输入点坐标
 //std::vector<pcl::PointXYZ>::iterator iter;
@@ -233,8 +233,8 @@ singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transf
 	//	pcl::io::savePLYFile(ss.str(), views_cloud);
 	}
 	
-	for (int i = 0; i < views_xyz.size(); i++)
-	{
-		pcl::io::savePCDFileASCII("../single_view_pcd/"+std::to_string(i)+".pcd", views_xyz[i]);
-	}	
+	//for (int i = 0; i < views_xyz.size(); i++)
+	//{
+	//	pcl::io::savePCDFileASCII("../single_view_pcd/"+std::to_string(i)+".pcd", views_xyz[i]);
+	//}	
 }

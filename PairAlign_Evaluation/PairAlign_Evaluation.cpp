@@ -199,7 +199,7 @@ int main(int argc, char **argv)
 	bool overturn = false;
 	int n_count = 0;
 	int n_count_correct = 0;
-	registration reg(false);
+	registration reg(true);
 
 	boost::shared_ptr<pcl::visualization::PCLVisualizer> view(new pcl::visualization::PCLVisualizer("CAD Registration"));
 	int v1;
@@ -247,7 +247,7 @@ int main(int argc, char **argv)
 	
 
 
-	while (n_count < 100)
+	while (n_count < 5000)
 	{
 		
 		//target random transformation 
@@ -271,7 +271,7 @@ int main(int argc, char **argv)
 		Eigen::Matrix3d rotation_matrix;
 		rotation_matrix = yawAngle * pitchAngle * rollAngle;
 		float translation_x = 0, translation_y = 0, translation_z = 0;
-		translation_x = 0.06 * random_distribution(random_engine) + 0.02;
+		translation_x = 1 * random_distribution(random_engine) + 0.02;
 		translation_y = 0.06 * random_distribution(random_engine) + 0.02;
 		translation_z = 0.06 * random_distribution(random_engine) + 0.02;
 		Eigen::Matrix4f real_transformation_matrix = Eigen::Matrix4f::Identity();

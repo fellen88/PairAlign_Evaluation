@@ -84,8 +84,8 @@ void registration::SAC_IA_PareAlign(const PointCloud::Ptr cloud_src, const Point
 
 	view->createViewPort(0, 0.0, 0.5, 1.0, v1);
 	view->createViewPort(0.5, 0.0, 1.0, 1.0, v2);
-	view->setBackgroundColor(0, 0, 0, v1);
-	view->setBackgroundColor(0, 0, 0, v2);
+	view->setBackgroundColor(255, 255, 255, v1);
+	view->setBackgroundColor(255, 255, 255, v2);
 	pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> sources_cloud_color(source_filtered, 250, 0, 0);
 	view->addPointCloud(source_filtered, sources_cloud_color, "sources_cloud_v1", v1);
 	pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> target_cloud_color(target_filtered, 0, 250, 0);

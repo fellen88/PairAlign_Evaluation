@@ -1,5 +1,5 @@
 
-#include "pcl_visualizer.h"
+#include "3d_visualizer.h"
 #include "3d_features.h"
 
 //Åä×¼

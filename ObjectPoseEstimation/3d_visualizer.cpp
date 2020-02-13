@@ -1,4 +1,4 @@
-#include "pcl_visualizer.h"
+#include "3d_visualizer.h"
 
 pcl_visualizer::pcl_visualizer(bool DebugVisualizer)
 {

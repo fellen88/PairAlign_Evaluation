@@ -1,5 +1,5 @@
 
-#include "data_process.h"
+#include "3d_data_process.h"
 
 VTK_MODULE_INIT(vtkRenderingOpenGL);
 

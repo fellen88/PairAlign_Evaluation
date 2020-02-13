@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="3d_data_process.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3d_features.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3d_registration.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="3d_visualizer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPoseEstimation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3d_features.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3d_data_process.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3d_visualizer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="3d_registration.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPoseEstimation.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{c5ceb746-ada7-4490-a707-c7ed613833d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{18cd743f-ed27-4c97-8d8f-9148167d7190}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

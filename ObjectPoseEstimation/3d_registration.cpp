@@ -1,5 +1,5 @@
 
-#include "3D_registration.h"
+#include "3d_registration.h"
 #include <math.h>
 
 registration::registration(bool DebugVisualizer): pcl_v_(DebugVisualizer)

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="F:\Algorithm Demos\ObjectPoseEstimation\glog\CMakeFiles\9d1de12fbe8a102680f52cac2d1a45e1\PACKAGE_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{309A95DB-2C62-3D81-82F3-96C928E8E803}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

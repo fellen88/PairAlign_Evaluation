@@ -1,0 +1,28 @@
+#pragma once
+#include "registration.h"
+
+#ifdef __DLLEXPORT
+#define __DLL_INTERFACE _declspec(dllexport)    // 导出函数 - 生成dll文件时使用
+#else
+#define __DLL_INTERFACE _declspec(dllimport)    // 导入函数 -使用dll是使用
+#endif
+
+class  __DLL_INTERFACE PoseEstimation
+{
+public:
+	Registration *p_registration_;
+	Eigen::Matrix4f final_transform;
+	Eigen::Matrix4f sac_transform;
+	Eigen::Matrix4f icp_transform;
+	PointCloud::Ptr sac_output;
+	PointCloud::Ptr icp_output;
+
+	PoseEstimation();
+	~PoseEstimation();
+
+	void Init();
+	void Start(PointCloud::Ptr source, PointCloud::Ptr target);
+};
+
+__DLL_INTERFACE  PoseEstimation *GetInstance();
+

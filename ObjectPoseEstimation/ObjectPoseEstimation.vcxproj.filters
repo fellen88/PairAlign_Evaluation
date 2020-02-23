@@ -1,36 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="3d_data_process.cpp">
+    <ClCompile Include="data_process.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="3d_features.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="3d_registration.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="3d_visualizer.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPoseEstimation.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="3d_features.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="3d_data_process.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="3d_visualizer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="3d_registration.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectPoseEstimation.h">
+    <ClInclude Include="data_process.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

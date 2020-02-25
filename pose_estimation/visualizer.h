@@ -5,6 +5,8 @@
 #include <pcl/visualization/histogram_visualizer.h> //直方图的可视化
 #include <pcl/visualization/pcl_plotter.h>// 直方图的可视化 方法2
 
+#include "stdafx.h"
+
 //pcl类型名简化
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloud;

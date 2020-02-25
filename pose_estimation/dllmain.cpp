@@ -1,7 +1,5 @@
 ﻿// dllmain.cpp : 定义 DLL 应用程序的入口点。
 #include "stdafx.h"
-#include "glog/logging.h"
-#pragma comment(lib,"glog.lib")
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -13,7 +11,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
       case DLL_PROCESS_ATTACH:
 	  {
 		google::InitGoogleLogging("pose_estimation.dll");
-		google::SetLogDestination(google::GLOG_INFO, "..\\Logs\\PoseEstimation_");
+		google::SetLogDestination(google::GLOG_INFO, "F:\\Algorithm Demos\\ObjectPoseEstimation\\Logs\\PoseEstimation_");
 		google::FlushLogFilesUnsafe(google::GLOG_INFO);
 		google::SetStderrLogging(google::GLOG_INFO);
 		google::SetLogFilenameExtension("log_");
@@ -26,7 +24,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 		break;
       case DLL_PROCESS_DETACH:
 	  {
-		google::ShutdownGoogleLogging();
+	    google::ShutdownGoogleLogging();
 		break;
 	  }		
     }

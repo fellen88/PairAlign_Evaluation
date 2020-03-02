@@ -33,6 +33,10 @@
 
 #include <pcl/features/vfh.h>
 
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/visualization/histogram_visualizer.h> //直方图的可视化
+#include <pcl/visualization/pcl_plotter.h>
+
 //pcl类型名简化
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloud;

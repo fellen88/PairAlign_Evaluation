@@ -27,9 +27,6 @@
     <ClInclude Include="registration.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="visualizer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,9 +39,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="registration.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="visualizer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -225,7 +225,7 @@ int main(int argc, char **argv)
 
 	  translation_error_01 = (float)count_trans_error01 * 100 / n_count;
 	  translation_error_03 = (float)count_trans_error03 * 100 / n_count;
-  	  translation_error_05 = (float)count_trans_error05 * 100 / n_count;
+  	translation_error_05 = (float)count_trans_error05 * 100 / n_count;
 	  translation_error_10 = (float)count_trans_error10 * 100 / n_count;
 	  translation_error_15 = (float)count_trans_error15 * 100 / n_count;
 	  cout << "translation error < 1mm :" << translation_error_01 << "%" << endl;

@@ -327,6 +327,8 @@ void model_transform(pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud, pcl::Point
 	pcl_viewer->addLine(pt3, pt4, 1.0, 0.0, 0.0, "11 edge");
 	pcl_viewer->addLine(pt3, pt7, 1.0, 0.0, 0.0, "12 edge");
 
+	pcl_viewer->spin();
+
 	//while (!pcl_viewer->wasStopped())
 	//{
 	//	pcl_viewer->spinOnce(100);
@@ -400,5 +402,5 @@ void model_transform(pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud, pcl::Point
 	pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud(new pcl::PointCloud<pcl::PointXYZ>());
 	// You can either apply transform_1 or transform_2; they are the same
 	pcl::transformPointCloud(*input_cloud, *transformed_cloud, transformation2);
-	pcl::io::savePCDFileASCII("transformed_cloud.pcd", *transformed_cloud);
+	//pcl::io::savePCDFileASCII("transformed_cloud.pcd", *transformed_cloud);
 }

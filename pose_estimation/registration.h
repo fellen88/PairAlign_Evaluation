@@ -1,7 +1,7 @@
 #ifndef REGISTRATION_H
 #define REGISTRATION_H  
 
-#include "visualizer.h"
+#include "stdafx.h"
 #include "features.h"
 //Åä×¼
 #include <pcl/registration/icp.h> 
@@ -14,7 +14,6 @@ class Registration
   public:
 
   bool DEBUG_VISUALIZER;
-  visualizer::PointCloudVisualizer pointcloud_visualizer_;
 
   Registration(bool DebugVisualizer);
   fpfhFeature::Ptr ComputeFpfh(const PointCloud::Ptr input_cloud, pcl::search::KdTree<pcl::PointXYZ>::Ptr tree);

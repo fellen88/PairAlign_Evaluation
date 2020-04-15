@@ -3,15 +3,13 @@
 
 VTK_MODULE_INIT(vtkRenderingOpenGL);
 
-inline double
-uniform_deviate (int seed)
+inline double uniform_deviate (int seed)
 {
   double ran = seed * (1.0 / (RAND_MAX + 1.0));
   return ran;
 }
  
-inline void
-randomPointTriangle (float a1, float a2, float a3, float b1, float b2, float b3, float c1, float c2, float c3,
+inline void randomPointTriangle (float a1, float a2, float a3, float b1, float b2, float b3, float c1, float c2, float c3,
                      Eigen::Vector4f& p)
 {
   float r1 = static_cast<float> (uniform_deviate (rand ()));
@@ -34,8 +32,7 @@ randomPointTriangle (float a1, float a2, float a3, float b1, float b2, float b3,
   p[3] = 0;
 }
  
-inline void
-randPSurface (vtkPolyData * polydata, std::vector<double> * cumulativeAreas, double totalArea, Eigen::Vector4f& p, bool calcNormal, Eigen::Vector3f& n)
+inline void randPSurface (vtkPolyData * polydata, std::vector<double> * cumulativeAreas, double totalArea, Eigen::Vector4f& p, bool calcNormal, Eigen::Vector3f& n)
 {
   float r = static_cast<float> (uniform_deviate (rand ()) * totalArea);
  
@@ -62,8 +59,7 @@ randPSurface (vtkPolyData * polydata, std::vector<double> * cumulativeAreas, dou
                        float (C[0]), float (C[1]), float (C[2]), p);
 }
  
-void
-uniform_sampling (vtkSmartPointer<vtkPolyData> polydata, size_t n_samples, bool calc_normal, pcl::PointCloud<pcl::PointXYZ> & cloud_out)
+void uniform_sampling (vtkSmartPointer<vtkPolyData> polydata, size_t n_samples, bool calc_normal, pcl::PointCloud<pcl::PointXYZ> & cloud_out)
 {
   polydata->BuildCells ();
   vtkSmartPointer<vtkCellArray> cells = polydata->GetPolys ();
@@ -109,8 +105,7 @@ using namespace pcl::console;
 const int default_number_samples = 100000;
 const float default_leaf_size = 0.01f;
  
-int
-data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
+int data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
 {
   // Parse command line arguments
   int SAMPLE_POINTS_ = default_number_samples;
@@ -192,9 +187,7 @@ data_process (int argc, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transfo
   return 1;
 }
 
-
-void 
-singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
+void singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transformed_cloud)
 {
 	/*+++++++++++++++++++++++++单视角点云获取+++++++++++++++++++++++++++++++*/
 	vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
@@ -238,7 +231,6 @@ singleview_sample(int i, char **argv, pcl::PointCloud<pcl::PointXYZ>::Ptr transf
 	//	pcl::io::savePCDFileASCII("../single_view_pcd/"+std::to_string(i)+".pcd", views_xyz[i]);
 	//}	
 }
-
 
 void model_transform(pcl::PointCloud<pcl::PointXYZ>::Ptr input_cloud, pcl::PointCloud<pcl::PointXYZ>::Ptr output_cloud)
 {

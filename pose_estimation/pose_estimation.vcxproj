@@ -74,8 +74,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ReferencePath>F:\Algorithm Demos\ObjectPoseEstimation\glog;$(ReferencePath)</ReferencePath>
-    <IncludePath>F:\Algorithm Demos\ObjectPoseEstimation\glog;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Algorithm Demos\ObjectPoseEstimation\x64\Release;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\Algorithm Demos\ObjectPoseEstimation\glog;C:\Program Files\opencv\sources\include\opencv2;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Algorithm Demos\ObjectPoseEstimation\x64\Release;C:\Program Files\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -98,6 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>C:\Program Files\opencv\build\include;F:\Algorithm Demos\ObjectPoseEstimation\X3PYPlugin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -106,6 +107,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <AdditionalDependencies>opencv_world430.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -160,15 +162,20 @@
   <ItemGroup>
     <ClInclude Include="features.h" />
     <ClInclude Include="pose_estimation.h" />
+    <ClInclude Include="preprocessing.h" />
     <ClInclude Include="registration.h" />
+    <ClInclude Include="segmentation.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="features.cpp" />
     <ClCompile Include="pose_estimation.cpp" />
+    <ClCompile Include="preprocessing.cpp" />
     <ClCompile Include="registration.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="segmentation.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

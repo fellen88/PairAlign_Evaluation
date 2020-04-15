@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 
 		//*************************************************************************************//
 		LOG(INFO) << "start pose estimation ";
-		pose_estimation_->Start(source, target_transformed);
+		pose_estimation_->Compute(source, target_transformed);
 		//*************************************************************************************//
 		pcl::transformPointCloud(*source, *source_transformed, Final_Transform);
 

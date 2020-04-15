@@ -2,7 +2,6 @@
 
 #ifndef MYPOINTREPRESENTATION_H
 #define MYPOINTREPRESENTATION_H
-
 //µ„/µ„‘∆
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
@@ -66,4 +65,11 @@ class MyPointRepresentation : public pcl::PointRepresentation <PointNormalT> //Á
     out[3] = p.curvature;
   }
 };
+
+class Features
+{
+public:
+  fpfhFeature::Ptr ComputeFpfh(const PointCloud::Ptr input_cloud, pcl::search::KdTree<pcl::PointXYZ>::Ptr tree);
+};
+
 # endif

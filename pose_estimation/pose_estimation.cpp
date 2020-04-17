@@ -3,7 +3,10 @@
 #include "stdafx.h"
 
 #define __DLLEXPORT
+
+#include <module/plugininc.h>
 #include "pose_estimation.h"
+
 
 PoseEstimation::PoseEstimation():sac_output(new pcl::PointCloud<pcl::PointXYZ>),
 								 icp_output(new pcl::PointCloud<pcl::PointXYZ>)
@@ -30,10 +33,17 @@ Eigen::Matrix4f PoseEstimation::Compute(PointCloud::Ptr source, PointCloud::Ptr 
 	return final_transform;
 }
 
-__DLL_INTERFACE PoseEstimation * GetInstance()
+void PoseEstimation::test()
 {
-  PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 
-  p_pose_estimation_->Init();
-  return p_pose_estimation_;
+	p_segmentation_->TestImg();
 }
+
+//__DLL_INTERFACE PoseEstimation * GetInstance()
+//{
+//  PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 
+//  p_pose_estimation_->Init();
+//  return p_pose_estimation_;
+//}
+
+
 

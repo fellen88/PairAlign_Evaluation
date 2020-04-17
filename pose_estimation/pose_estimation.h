@@ -3,6 +3,7 @@
 #include "segmentation.h"
 
 #include <module/classmacro.h>
+#include <isimple.h>
 const char* const g_clsidSimple = "94071767-ba6b-4769-9eb4-2ebf469289f9";
 
 #ifdef __DLLEXPORT
@@ -11,8 +12,12 @@ const char* const g_clsidSimple = "94071767-ba6b-4769-9eb4-2ebf469289f9";
 #define __DLL_INTERFACE _declspec(dllimport)    // 导入函数 -使用dll是使用
 #endif
 
-class  __DLL_INTERFACE PoseEstimation
+class PoseEstimation :public ISimple
 {
+		X3BEGIN_CLASS_DECLARE(PoseEstimation, g_clsidSimple)
+        X3DEFINE_INTERFACE_ENTRY(ISimple)
+    X3END_CLASS_DECLARE()
+
 	public:
 	Registration *p_registration_;
 	Segmentation *p_segmentation_;
@@ -27,7 +32,8 @@ class  __DLL_INTERFACE PoseEstimation
 
 	void Init();
 	Eigen::Matrix4f Compute(PointCloud::Ptr source, PointCloud::Ptr target);
+	void test();
 };
 
-__DLL_INTERFACE  PoseEstimation *GetInstance();
+//__DLL_INTERFACE  PoseEstimation *GetInstance();
 

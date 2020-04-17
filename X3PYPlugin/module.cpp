@@ -1,9 +1,8 @@
-#include "stdafx.h"
 #include <module/plugininc.h>
 #include <module/pluginimpl.h>      // 实现插件的导出函数
 #include <module/modulemacro.h>     // 注册实现类的宏定义
 
-#include "pose_estimation.h"               // 包含实现类
+#include "../pose_estimation/pose_estimation.h"               // 包含实现类
 
 XBEGIN_DEFINE_MODULE()
 XDEFINE_CLASSMAP_ENTRY(PoseEstimation) // 注册普通实现类或单实例类

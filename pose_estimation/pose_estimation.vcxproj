@@ -168,9 +168,9 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\X3PYPlugin\module.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="features.cpp" />
-    <ClCompile Include="module.cpp" />
     <ClCompile Include="pose_estimation.cpp" />
     <ClCompile Include="preprocessing.cpp" />
     <ClCompile Include="registration.cpp">

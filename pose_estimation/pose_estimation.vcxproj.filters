@@ -56,7 +56,7 @@
     <ClCompile Include="segmentation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="module.cpp">
+    <ClCompile Include="..\X3PYPlugin\module.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

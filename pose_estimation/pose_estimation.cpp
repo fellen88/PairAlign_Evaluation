@@ -4,7 +4,6 @@
 
 #define __DLLEXPORT
 
-#include <module/plugininc.h>
 #include "pose_estimation.h"
 
 
@@ -38,12 +37,12 @@ void PoseEstimation::test()
 	p_segmentation_->TestImg();
 }
 
-//__DLL_INTERFACE PoseEstimation * GetInstance()
-//{
-//  PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 
-//  p_pose_estimation_->Init();
-//  return p_pose_estimation_;
-//}
+__DLL_INTERFACE PoseEstimation * GetInstance()
+{
+  PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 
+  p_pose_estimation_->Init();
+  return p_pose_estimation_;
+}
 
 
 

@@ -6,7 +6,7 @@
 class IX3py : public x3::IObject
 {
     X3DEFINE_IID(IX3py);
-    void test();
+    virtual void test() = 0;
 
   //virtual int subtract(int a, int b) const = 0;
 	//virtual int disPatch(int iCnt) const = 0;

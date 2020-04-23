@@ -32,11 +32,6 @@ Eigen::Matrix4f PoseEstimation::Compute(PointCloud::Ptr source, PointCloud::Ptr 
 	return final_transform;
 }
 
-void PoseEstimation::test()
-{
-	p_segmentation_->TestImg();
-}
-
 __DLL_INTERFACE PoseEstimation * GetInstance()
 {
   PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 

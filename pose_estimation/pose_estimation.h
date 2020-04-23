@@ -8,7 +8,7 @@
 #define __DLL_INTERFACE _declspec(dllimport)    // 导入函数 -使用dll是使用
 #endif
 
-class PoseEstimation
+class  __DLL_INTERFACE PoseEstimation
 {
 	public:
 	Registration *p_registration_;
@@ -24,7 +24,6 @@ class PoseEstimation
 
 	void Init();
 	Eigen::Matrix4f Compute(PointCloud::Ptr source, PointCloud::Ptr target);
-	void test();
 };
 
 __DLL_INTERFACE  PoseEstimation *GetInstance();

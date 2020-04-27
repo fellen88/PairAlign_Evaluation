@@ -22,10 +22,6 @@ void PoseEstimation::Init()
 	LOG(INFO) << "Class PoseEstimation Init";
 }
 
-void PoseEstimation::Compute()
-{
-
-}
 
 Eigen::Matrix4f PoseEstimation::Compute(PointCloud::Ptr source, PointCloud::Ptr target)
 {

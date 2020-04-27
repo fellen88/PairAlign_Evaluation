@@ -6,5 +6,5 @@
 void Plugin::test()
 {
 	PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 
-  p_pose_estimation_->p_segmentation_->TestImg();
+  p_pose_estimation_->Compute();
 }

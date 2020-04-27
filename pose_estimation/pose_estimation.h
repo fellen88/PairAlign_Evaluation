@@ -1,6 +1,5 @@
 #pragma once
 #include "registration.h"
-#include "segmentation.h"
 
 #ifdef __DLLEXPORT
 #define __DLL_INTERFACE _declspec(dllexport)    // 导出函数 - 生成dll文件时使用
@@ -12,7 +11,6 @@ class  __DLL_INTERFACE PoseEstimation
 {
 	public:
 	Registration *p_registration_;
-	Segmentation *p_segmentation_;
 	Eigen::Matrix4f final_transform;
 	Eigen::Matrix4f sac_transform;
 	Eigen::Matrix4f icp_transform;
@@ -23,6 +21,7 @@ class  __DLL_INTERFACE PoseEstimation
 	~PoseEstimation();
 
 	void Init();
+	void Compute();
 	Eigen::Matrix4f Compute(PointCloud::Ptr source, PointCloud::Ptr target);
 };
 

@@ -30,9 +30,6 @@
     <ClInclude Include="preprocessing.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="segmentation.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\X3PYPlugin\x3py_interface.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -57,9 +54,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="features.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="segmentation.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\X3PYPlugin\plugin.cpp">

@@ -7,20 +7,44 @@
 #include <cstring>
 #include <opencv2/opencv.hpp>
 
+using namespace cv;
+
 class PreProcessing
 {
 public:
-	int ImageWidth;
-	int ImageHeight;
-
-	LPVOID pcolorBuffer;                                   // 共享内存指针
-	LPVOID pdepthBuffer;                                   // 共享内存指针
+	int WIDTH;
+	int HEIGHT; 
+	
+	// 共享内存指针
+	LPVOID pcolorBuffer;                                  
+	LPVOID pdepthBuffer;                                  
+	LPVOID cameraStateBuffer;
+	LPVOID pictureStateBuffer;
 
 	HANDLE hcolorMap;
 	HANDLE hdepthMap;
+	HANDLE hcameraMap;
+	HANDLE hpictureMap;
+
+	enum CameraState
+	{
+		DISCONNECTED = 0,
+		CONNECTED
+
+	};
+
+	enum PictureState
+	{
+		FIRST,
+		WRITING,
+		WRITED,
+		READING,
+		READED
+	};
 
 	PreProcessing();
-	int UcharToMat(uchar *p2, cv::Mat& src, int flag);
+	~PreProcessing();
+	int ucharToMat(uchar *p2, cv::Mat& src, int flag);
 	bool DebugVisualization;
 	bool RecieveImage();
 	bool SetParameters();

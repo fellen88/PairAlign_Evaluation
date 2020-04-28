@@ -2,21 +2,50 @@
 #include"stdafx.h"
 #include "preprocessing.h"
 
+#define COLORMEMORYNAME "color"
+#define DEPTHMEMORYNAME "depth"
+#define CAMERASTATE "cameraState"
+#define PICTURESTATE "pictureState"
 
 PreProcessing::PreProcessing()
 {
-	ImageWidth = 848;
-	ImageHeight = 480;
+	WIDTH = 848;
+	HEIGHT = 480;
 	
+	cameraStateBuffer = nullptr;
+	pictureStateBuffer = nullptr;
 	pcolorBuffer = nullptr;                                   // 共享内存指针
 	pdepthBuffer = nullptr;                                   // 共享内存指针
 
-	hcolorMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)"color");
-	hdepthMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)"depth");
+	hcameraMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)CAMERASTATE);
+	hpictureMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)PICTURESTATE);
+	hcolorMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)COLORMEMORYNAME);
+	hdepthMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)DEPTHMEMORYNAME);
+	if (NULL != hcolorMap && NULL != hdepthMap && NULL != hcameraMap && NULL != hpictureMap)
+	{
+		// 打开成功，映射对象的一个视图，得到指向共享内存的指针，显示出里面的数据
+		pcolorBuffer = ::MapViewOfFile(hcolorMap, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+		pdepthBuffer = ::MapViewOfFile(hdepthMap, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+		cameraStateBuffer = ::MapViewOfFile(hcameraMap, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+		pictureStateBuffer = ::MapViewOfFile(hpictureMap, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+	}
+}
+
+PreProcessing::~PreProcessing()
+{
+   // 解除文件映射，关闭内存映射文件对象句柄
+	::UnmapViewOfFile(pcolorBuffer);
+	::CloseHandle(hcolorMap);
+	::UnmapViewOfFile(pdepthBuffer);
+	::CloseHandle(hdepthMap);
+	::UnmapViewOfFile(cameraStateBuffer);
+	::CloseHandle(cameraStateBuffer);
+	::UnmapViewOfFile(pictureStateBuffer);
+	::CloseHandle(pictureStateBuffer);
 }
 
 /**将uchar类型的数据转换为Mat类型*/
-int PreProcessing::UcharToMat(uchar *p2, cv::Mat& src, int flag)
+int PreProcessing::ucharToMat(uchar *p2, cv::Mat& src, int flag)
 {
 	int img_width = src.cols;
 	int img_height = src.rows;
@@ -38,18 +67,38 @@ bool PreProcessing::SetParameters()
 
 bool PreProcessing::RecieveImage()
 {
-	uchar *p1 = (uchar*)malloc(sizeof(uchar)*ImageHeight*ImageWidth * 3);
-	memcpy(p1, pcolorBuffer, sizeof(uchar)*ImageHeight*ImageWidth * 3);
-	cv::Mat color(cv::Size(ImageWidth, ImageHeight), CV_8UC3);
-	UcharToMat(p1, color, 0);
-	cv::imshow("color", color);
+	CameraState cameraState;
+	memcpy(&cameraState, cameraStateBuffer, sizeof(CameraState));
+	if (CameraState::DISCONNECTED == cameraState)
+	{
+		Sleep(10);
+		return false;
+	}
+	PictureState picture;
+	memcpy(&picture, pictureStateBuffer, sizeof(PictureState));
+	if (PictureState::WRITED == picture)
+	{
+		picture = PictureState::READING;
+		memcpy(pictureStateBuffer, &picture, sizeof(PictureState));
 
-	uchar *p2 = (uchar*)malloc(sizeof(uchar)*ImageHeight*ImageWidth * 3);
-	memcpy(p2, pdepthBuffer, sizeof(uchar)*ImageHeight*ImageWidth * 3);
-	cv::Mat depth(cv::Size(ImageWidth, ImageHeight), CV_8UC3);
-	UcharToMat(p2, depth, 0);
-	cv::imshow("depth", depth);
-	return false;
+		uchar *p1 = (uchar*)malloc(sizeof(uchar)*HEIGHT*WIDTH * 3);
+		memcpy(p1, pcolorBuffer, sizeof(uchar)*HEIGHT*WIDTH * 3);
+		Mat color(Size(WIDTH, HEIGHT), CV_8UC3);
+		ucharToMat(p1, color, 0);
+		cv::imshow("color", color);
+
+		uchar *p2 = (uchar*)malloc(sizeof(uchar)*HEIGHT*WIDTH * 3);
+		memcpy(p2, pdepthBuffer, sizeof(uchar)*HEIGHT*WIDTH * 3);
+		Mat depth(Size(WIDTH, HEIGHT), CV_8UC3);
+		ucharToMat(p2, depth, 0);
+		cv::imshow("depth", depth);
+
+		cv::waitKey(1);
+		delete[] p1;
+		delete[] p2;
+		picture = PictureState::READED;
+		memcpy(pictureStateBuffer, &picture, sizeof(PictureState));
+	}
 }
 
 bool PreProcessing::ImagetoPointCloud()

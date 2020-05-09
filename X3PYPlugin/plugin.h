@@ -1,7 +1,7 @@
 #pragma once
 #include <module/classmacro.h>
 #include <x3py_interface.h>
-const char* const g_clsidSimple = "94071767-ba6b-4769-9eb4-2ebf469289f9";
+const char* const g_clsidSimple = "94071767-ba6b-4769-9eb4-PoseEstimation";
 
 class Plugin : public IX3py
 {

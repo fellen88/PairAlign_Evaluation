@@ -26,6 +26,8 @@ public:
 	HANDLE hcameraMap;
 	HANDLE hpictureMap;
 
+	bool isOpenFileMapping;
+
 	enum CameraState
 	{
 		DISCONNECTED = 0,

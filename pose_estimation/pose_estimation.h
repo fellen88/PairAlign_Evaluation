@@ -22,6 +22,7 @@ class  __DLL_INTERFACE PoseEstimation
 
 	void Init();
 	Eigen::Matrix4f Compute(PointCloud::Ptr source, PointCloud::Ptr target);
+	void Compute();
 };
 
 __DLL_INTERFACE  PoseEstimation *GetInstance();

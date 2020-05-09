@@ -3,7 +3,7 @@
 #include "features.h"
 #include <math.h>
 
-Registration::Registration(bool DebugVisualizer = true)
+Registration::Registration(bool DebugVisualizer = true):PreProcessing()
 {
   DEBUG_VISUALIZER = DebugVisualizer;
 }

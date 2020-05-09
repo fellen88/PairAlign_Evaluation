@@ -9,6 +9,7 @@
 
 PreProcessing::PreProcessing()
 {
+  LOG(INFO) << "PreProcessing() ";
 	WIDTH = 848;
 	HEIGHT = 480;
 	
@@ -16,6 +17,8 @@ PreProcessing::PreProcessing()
 	pictureStateBuffer = nullptr;
 	pcolorBuffer = nullptr;                                   // 共享内存指针
 	pdepthBuffer = nullptr;                                   // 共享内存指针
+
+	isOpenFileMapping = false;
 
 	hcameraMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)CAMERASTATE);
 	hpictureMap = ::OpenFileMapping(FILE_MAP_ALL_ACCESS, 0, (LPCWSTR)PICTURESTATE);
@@ -28,6 +31,7 @@ PreProcessing::PreProcessing()
 		pdepthBuffer = ::MapViewOfFile(hdepthMap, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 		cameraStateBuffer = ::MapViewOfFile(hcameraMap, FILE_MAP_ALL_ACCESS, 0, 0, 0);
 		pictureStateBuffer = ::MapViewOfFile(hpictureMap, FILE_MAP_ALL_ACCESS, 0, 0, 0);
+		isOpenFileMapping = true;
 	}
 }
 
@@ -67,6 +71,11 @@ bool PreProcessing::SetParameters()
 
 bool PreProcessing::RecieveImage()
 {
+	if (false == isOpenFileMapping)
+	{
+		return false;
+	}
+
 	CameraState cameraState;
 	memcpy(&cameraState, cameraStateBuffer, sizeof(CameraState));
 	if (CameraState::DISCONNECTED == cameraState)

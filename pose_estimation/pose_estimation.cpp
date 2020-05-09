@@ -8,9 +8,10 @@
 
 
 PoseEstimation::PoseEstimation():sac_output(new pcl::PointCloud<pcl::PointXYZ>),
-								 icp_output(new pcl::PointCloud<pcl::PointXYZ>)
+								 icp_output(new pcl::PointCloud<pcl::PointXYZ>),
+	               p_registration_(new Registration(true))
 {
-  p_registration_ = new Registration(true);
+	LOG(INFO) << "PoseEstimation()";
 }
 
 PoseEstimation::~PoseEstimation()
@@ -31,8 +32,14 @@ Eigen::Matrix4f PoseEstimation::Compute(PointCloud::Ptr source, PointCloud::Ptr 
 	return final_transform;
 }
 
+void PoseEstimation::Compute()
+{
+	p_registration_->RecieveImage();
+}
+
 __DLL_INTERFACE PoseEstimation * GetInstance()
 {
+	LOG(INFO) << "GetInstance()";
   PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 
   p_pose_estimation_->Init();
   return p_pose_estimation_;

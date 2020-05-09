@@ -75,7 +75,10 @@
     <LinkIncremental>false</LinkIncremental>
     <ReferencePath>F:\Algorithm Demos\ObjectPoseEstimation\glog;$(ReferencePath)</ReferencePath>
     <IncludePath>F:\Algorithm Demos\ObjectPoseEstimation\glog;C:\Program Files\opencv\sources\include\opencv2;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Algorithm Demos\ObjectPoseEstimation\x64\Release;C:\Program Files\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>F:\Algorithm Demos\ObjectPoseEstimation\glog\release;C:\Program Files\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)X3PYPlugin\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>X3PYPlugin\bin\$(Platform)\$(Configuration)\</IntDir>
+    <TargetExt>.pln</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -108,7 +111,7 @@
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
       <AdditionalDependencies>opencv_world430.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)plugins\$(TargetName).pln</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

@@ -78,7 +78,7 @@
     <LibraryPath>F:\Algorithm Demos\ObjectPoseEstimation\glog\release;C:\Program Files\opencv\build\x64\vc15\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)X3PYPlugin\bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>X3PYPlugin\bin\$(Platform)\$(Configuration)\</IntDir>
-    <TargetExt>.pln</TargetExt>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>

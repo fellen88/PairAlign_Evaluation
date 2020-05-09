@@ -69,6 +69,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="PCLRelease.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -83,10 +84,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>F:\Algorithm Demos\ObjectPoseEstimation\glog;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Algorithm Demos\ObjectPoseEstimation\x64\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>F:\Algorithm Demos\ObjectPoseEstimation\glog\release;$(LibraryPath)</LibraryPath>
     <ReferencePath>F:\Algorithm Demos\ObjectPoseEstimation\glog;$(ReferencePath)</ReferencePath>
     <OutDir>$(SolutionDir)X3PYPlugin\bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>X3PYPlugin\bin\$(Platform)\$(Configuration)</IntDir>
+    <IntDir>X3PYPlugin\bin\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -1,11 +1,6 @@
 
 #pragma once
 #include "stdafx.h"
-#include<Windows.h>
-#include<iostream>
-#include <string>
-#include <cstring>
-#include <opencv2/opencv.hpp>
 
 using namespace cv;
 
@@ -32,7 +27,6 @@ public:
 	{
 		DISCONNECTED = 0,
 		CONNECTED
-
 	};
 
 	enum PictureState
@@ -48,8 +42,10 @@ public:
 	~PreProcessing();
 	int ucharToMat(uchar *p2, cv::Mat& src, int flag);
 	bool DebugVisualization;
-	bool RecieveImage();
+	bool GetImages();
 	bool SetParameters();
-	bool ImagetoPointCloud();
+	bool DepthtoPointCloud();
+	bool Load3DModel(const PointCloud::Ptr object_model, std::string name);
+	void Show(const PointCloud::Ptr pointcloud, std::string name);
 
 };

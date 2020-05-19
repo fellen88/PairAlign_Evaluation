@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "features.h"
 
-
 fpfhFeature::Ptr Features::ComputeFpfh(PointCloud::Ptr input_cloud, pcl::search::KdTree<pcl::PointXYZ>::Ptr tree)
 {
 	//∑®œÚ¡ø

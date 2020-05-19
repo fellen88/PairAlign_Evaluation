@@ -65,17 +65,19 @@ int PreProcessing::ucharToMat(uchar *p2, cv::Mat& src, int flag)
 
 bool PreProcessing::SetParameters()
 {
-
-	return false;
+	if (1)
+	{
+		return false;
+	}
+	return true;
 }
 
-bool PreProcessing::RecieveImage()
+bool PreProcessing::GetImages()
 {
 	if (false == isOpenFileMapping)
 	{
 		return false;
 	}
-
 	CameraState cameraState;
 	memcpy(&cameraState, cameraStateBuffer, sizeof(CameraState));
 	if (CameraState::DISCONNECTED == cameraState)
@@ -108,9 +110,31 @@ bool PreProcessing::RecieveImage()
 		picture = PictureState::READED;
 		memcpy(pictureStateBuffer, &picture, sizeof(PictureState));
 	}
+	return true;
 }
 
-bool PreProcessing::ImagetoPointCloud()
+bool PreProcessing::DepthtoPointCloud()
 {
-	return false;
+	if (1)
+	{
+		return false;
+	}
+	return true;
+}
+
+bool PreProcessing::Load3DModel(const PointCloud::Ptr object_model, std::string name)
+{
+	pcl::PCDReader reader;
+	if (reader.read(name, *object_model)  < 0)
+	{
+		return false;
+	}
+	return true;
+}
+
+void PreProcessing::Show(const PointCloud::Ptr pointcloud, std::string name)
+{
+	boost::shared_ptr<pcl::visualization::PCLVisualizer> view(new pcl::visualization::PCLVisualizer(name));
+	view->addPointCloud(pointcloud);
+  view->spin ();
 }

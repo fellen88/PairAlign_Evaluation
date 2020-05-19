@@ -9,6 +9,7 @@
 
 PoseEstimation::PoseEstimation():sac_output(new pcl::PointCloud<pcl::PointXYZ>),
 								 icp_output(new pcl::PointCloud<pcl::PointXYZ>),
+								 object_model(new pcl::PointCloud<pcl::PointXYZ>),
 	               p_registration_(new Registration(true))
 {
 	LOG(INFO) << "PoseEstimation()";
@@ -34,7 +35,14 @@ Eigen::Matrix4f PoseEstimation::Compute(PointCloud::Ptr source, PointCloud::Ptr 
 
 void PoseEstimation::Compute()
 {
-	p_registration_->RecieveImage();
+	//if (p_registration_->SetParameters())
+	{
+		//if (p_registration_->RecieveImage() && p_registration_->Load3DModel(object_model))
+		{
+			p_registration_->Load3DModel(object_model, "test.pcd");
+			p_registration_->Show(object_model, "object model");
+		}
+	}
 }
 
 __DLL_INTERFACE PoseEstimation * GetInstance()

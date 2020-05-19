@@ -16,6 +16,7 @@ class  __DLL_INTERFACE PoseEstimation
 	Eigen::Matrix4f icp_transform;
 	PointCloud::Ptr sac_output;
 	PointCloud::Ptr icp_output;
+	PointCloud::Ptr object_model;		
 
 	PoseEstimation();
 	~PoseEstimation();

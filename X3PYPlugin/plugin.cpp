@@ -5,5 +5,7 @@
 
 void Plugin::test()
 {
-	PoseEstimation* p_pose_estimation_ = new PoseEstimation(); 
+	PoseEstimation *pose_estimation_ =GetInstance();
+	pose_estimation_->Compute();
+
 }

@@ -5,7 +5,6 @@
 int main(int argc, char **argv)
 {
 	PoseEstimation *pose_estimation_ =GetInstance();
-
 	int n_count = 0;
 	while (n_count < 1)
 	{
